@@ -179,39 +179,42 @@ include 'admin_class.php'; ?>
                 <h3 class="display-4">Accoutn user</h3>
                 <hr style="border: 1px solid rgb(0, 0, 0); ">
                 <div class="customer">
-                <div class="customer">
-                    <!--=============== copy paste lại cả thẻ table ====================-->
                     <table class="table table-striped table-hover mb-0">
-
-
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">User Name</th>
-                                <th scope="col">Phonenumber</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">CreateDate</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $sql = "select * from users";
-                                $results = $conn->query($sql);
-                                while ($row = $results->fetch_assoc()) { ?>
+                            $selectContact = "SELECT * FROM users";
+                            $selRes = mysqli_query($conn,$selectContact);
+                            if($selRes){
+                                while($row = mysqli_fetch_assoc($selRes)){
+
+                            ?>
                             <tr>
-                                <td><?php echo $row["idUser"] ?></td>
-                                <td><?php echo $row["username"] ?></td>
-                                <td><?php echo $row["phonenumber"] ?></td>
+                                <td><?php echo $row["idUser"]?></td>
+                                <td><?php echo $row["username"]?></td>
+                                <td><?php echo $row["address"]?></td>
+                                <td><?php echo $row["phonenumber"]?></td>
+                                <td><?php echo $row["email"]?></td>
+                                <td><?php echo $row["createDate"]?></td>
+                            
                                 <td>
                                     <button type="button" id="<?php echo $row["idUser"]?>"
                                         class="btn btn-info btn-xs view_dataaccount" data-bs-toggle="modal">View
                                         detail</button>
                                 </td>
-
                             </tr>
-
-                            <?php }
-                                ?>
-
+                            <?php 
+                            }
+                            }?>
                         </tbody>
                     </table>
                 </div>
@@ -220,31 +223,45 @@ include 'admin_class.php'; ?>
                 <h3 class="display-4">Contact</h3>
                 <hr style="border: 1px solid rgb(0, 0, 0); ">
                 <div>
-                <table class="table table-striped table-hover mb-0">
+                    <table class="table table-striped table-hover mb-0">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Fullname</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Subject</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Content</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">DateContact</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $selectContact = "select * from contact";
-                                $results = $conn->query($selectContact);
-                                while ($row = $results->fetch_assoc()) { ?>
+                            $selectContact = "SELECT * FROM contact";
+                            $selRes = mysqli_query($conn,$selectContact);
+                            if($selRes){
+                                while($row = mysqli_fetch_assoc($selRes)){
 
+                                
+                            ?>
                             <tr>
-                                <td><?php echo $row["idContact"] ?></td>
-                                <td><?php echo $row["fullname"] ?></td>
-                                <td><?php echo $row["email"] ?></td>
+                                <td><?php echo $row['idContact']?></td>
+                                <td><?php echo $row['subjects']?></td>
+                                <td><?php echo $row['email']?></td>
+                                <td><?php echo $row['fullname']?></td>
+                                <td><?php echo $row['content']?></td>
+
+                                <td><?php echo $row['phone']?></td>
+                                <td><?php echo $row['dateContact']?></td>
+
+
                                 <td><button type="button" id="<?php echo $row["idContact"]?>"
                                         class="btn btn-info btn-xs view_datacontact" data-bs-toggle="modal">View
                                         detail</button></td>
                             </tr>
-                            <?php }
-                                ?>
+                            <?php 
+                            }
+                            }?>
                         </tbody>
                     </table>
                 </div>
@@ -435,8 +452,8 @@ include 'admin_class.php'; ?>
                 </div>
             </div>
         </div>
-                <!--==============Thêm cả div  Modal contact -->
-                <div id="dataModalcontact" class="modal fade">
+        <!--==============Thêm cả div  Modal contact -->
+        <div id="dataModalcontact" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
